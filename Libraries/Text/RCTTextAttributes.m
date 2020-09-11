@@ -209,7 +209,8 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
   if (fontScalingEnabled) {
     CGFloat fontSizeMultiplier = !isnan(_fontSizeMultiplier) ? _fontSizeMultiplier : 1.0;
     CGFloat maxFontSizeMultiplier = !isnan(_maxFontSizeMultiplier) ? _maxFontSizeMultiplier : 0.0;
-    return maxFontSizeMultiplier >= 1.0 ? fminf(maxFontSizeMultiplier, fontSizeMultiplier) : fontSizeMultiplier;
+    // Overriding maxFontSizeMultiplier prop purpose to control user in-app provided scaling as we are not using it anywhere in the application and adding a new property would be too much work difficult to replicate every time we update RN
+    return maxFontSizeMultiplier > 0.0 ? maxFontSizeMultiplier : fontSizeMultiplier;
   } else {
     return 1.0;
   }

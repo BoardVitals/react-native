@@ -39,12 +39,14 @@ public class PixelUtil {
     DisplayMetrics displayMetrics = DisplayMetricsHolder.getWindowDisplayMetrics();
     float scaledDensity = displayMetrics.scaledDensity;
     float currentFontScale = scaledDensity / displayMetrics.density;
-    if (maxFontScale >= 1 && maxFontScale < currentFontScale) {
+    // Overriding maxFontSizeMultiplier prop purpose to control user in-app provided scaling as we are not using it anywhere in the application and adding a new property would be too much work difficult to replicate every time we update RN
+    if (maxFontScale > 0) {
       scaledDensity = displayMetrics.density * maxFontScale;
     }
 
     return value * scaledDensity;
   }
+
 
   /** Convert from SP to PX */
   public static float toPixelFromSP(double value) {
